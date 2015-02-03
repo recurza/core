@@ -15,7 +15,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 
 //This file describes the module, including database tables
 
@@ -30,17 +30,27 @@ $author="Stephanie Ng" ; //Your name
 $url="" ; //Your URL
 
 //Module tables & gibbonSettings entries
-$moduleTables[0]="CREATE TABLE `yay` (
-    `thingie` text,
-    PRIMARY KEY (`thingie`))
-    ENGINE=MyISAM DEFAULT CHARSET=utf8;" ; //One array entry for every database table you need to create. Might be nice to preface the table name with the module name, to keep the db neat. 
+//TODO set creator to gibbonID
+
+$moduleTables[0]="CREATE TABLE `lostProperty` (
+    `itemID` int(10) unsigned zerofill NOT NULL AUTO_INCREMENT,
+    `name` varchar (255) NOT NULL,
+    `description` text NOT NULL,
+    `gibbonPersonIDRetriever` int(10) unsigned zerofill,
+    `gibbonPersonIDFounder` int(10) unsigned zerofill NOT NULL,
+    `dateRetrieved` date,
+    `dateFound` date NOT NULL,
+
+    PRIMARY KEY (`itemID`)   
+);" ;
+//One array entry for every database table you need to create. Might be nice to preface the table name with the module name, to keep the db neat. 
 //$moduleTables[1]="" ; //Also can be used to put data into gibbonSettings. Other sql can be run, but resulting data will not be cleaned up on uninstall.
 
 
 //Action rows 
 //One array per action
 $actionRows[0]["name"]="Lost Property" ; //The name of the action (appears to user in the right hand side module menu)
-$actionRows[0]["precedence"]="1"; //If it is a grouped action, the precedence controls which is highest action in group
+$actionRows[0]["precedence"]="0"; //If it is a grouped action, the precedence controls which is highest action in group
 $actionRows[0]["category"]="" ; //Optional: subgroups for the right hand side module menu
 $actionRows[0]["description"]="Find your lost items here" ; //Text description
 $actionRows[0]["URLList"]="lostproperty.php" ; //List of pages included in this action
@@ -56,5 +66,5 @@ $actionRows[0]["categoryPermissionParent"]="N" ; //Should this action be availab
 $actionRows[0]["categoryPermissionOther"]="N" ; //Should this action be available to user roles in the Other category?
 
 //Hooks
-$hooks[0]="" ; //Serialised array to create hook and set options. See Hooks documentation online.
+$hooks[0]="INSERT INTO `gibbonHook` (`gibbonHookID`, `name`, `type`, `options`, gibbonModuleID) VALUES (NULL, 'Lost Property', 'Public Home Page ', '', (SELECT gibbonModuleID FROM gibbonModule WHERE name='$name'));" ; //Serialised array to create hook and set options. See Hooks documentation online.
 ?>
