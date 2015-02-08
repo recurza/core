@@ -30,7 +30,6 @@ $author="Stephanie Ng" ; //Your name
 $url="" ; //Your URL
 
 //Module tables & gibbonSettings entries
-//TODO set creator to gibbonID
 
 $moduleTables[0]="CREATE TABLE `lostProperty` (
     `itemID` int(10) unsigned zerofill NOT NULL AUTO_INCREMENT,
@@ -49,22 +48,37 @@ $moduleTables[0]="CREATE TABLE `lostProperty` (
 
 //Action rows 
 //One array per action
-$actionRows[0]["name"]="Lost Property" ; //The name of the action (appears to user in the right hand side module menu)
-$actionRows[0]["precedence"]="0"; //If it is a grouped action, the precedence controls which is highest action in group
+$actionRows[0]["name"]="Browse Items" ; //The name of the action (appears to user in the right hand side module menu)
+$actionRows[0]["precedence"]="1"; //If it is a grouped action, the precedence controls which is highest action in group
 $actionRows[0]["category"]="" ; //Optional: subgroups for the right hand side module menu
 $actionRows[0]["description"]="Find your lost items here" ; //Text description
 $actionRows[0]["URLList"]="lostproperty.php" ; //List of pages included in this action
 $actionRows[0]["entryURL"]="lostproperty.php" ; //The landing action for the page.
 $actionRows[0]["defaultPermissionAdmin"]="Y" ; //Default permission for built in role Admin
 $actionRows[0]["defaultPermissionTeacher"]="Y" ; //Default permission for built in role Teacher
-$actionRows[0]["defaultPermissionStudent"]="N" ; //Default permission for built in role Student
-$actionRows[0]["defaultPermissionParent"]="N" ; //Default permission for built in role Parent
-$actionRows[0]["defaultPermissionSupport"]="N" ; //Default permission for built in role Support
+$actionRows[0]["defaultPermissionStudent"]="Y" ; //Default permission for built in role Student
+$actionRows[0]["defaultPermissionParent"]="Y" ; //Default permission for built in role Parent
+$actionRows[0]["defaultPermissionSupport"]="Y" ; //Default permission for built in role Support
 $actionRows[0]["categoryPermissionStaff"]="Y" ; //Should this action be available to user roles in the Staff category?
-$actionRows[0]["categoryPermissionStudent"]="N" ; //Should this action be available to user roles in the Student category?
-$actionRows[0]["categoryPermissionParent"]="N" ; //Should this action be available to user roles in the Parent category?
-$actionRows[0]["categoryPermissionOther"]="N" ; //Should this action be available to user roles in the Other category?
+$actionRows[0]["categoryPermissionStudent"]="Y" ; //Should this action be available to user roles in the Student category?
+$actionRows[0]["categoryPermissionParent"]="Y" ; //Should this action be available to user roles in the Parent category?
+$actionRows[0]["categoryPermissionOther"]="Y" ; //Should this action be available to user roles in the Other category?
 
+$actionRows[1]["name"]="Manage Units_learningAreas" ;
+$actionRows[1]["precedence"]="0";
+$actionRows[1]["category"]="Admin" ;
+$actionRows[1]["description"]="Allows a privileged user within a learning area to manage all Free Learning units with their learning area." ;
+$actionRows[1]["URLList"]="units_manage.php, units_manage_add.php, units_manage_edit.php, units_manage_delete.php" ;
+$actionRows[1]["entryURL"]="units_manage.php" ;
+$actionRows[1]["defaultPermissionAdmin"]="N" ;
+$actionRows[1]["defaultPermissionTeacher"]="Y" ;
+$actionRows[1]["defaultPermissionStudent"]="N" ;
+$actionRows[1]["defaultPermissionParent"]="N" ;
+$actionRows[1]["defaultPermissionSupport"]="N" ;
+$actionRows[1]["categoryPermissionStaff"]="Y" ;
+$actionRows[1]["categoryPermissionStudent"]="N" ;
+$actionRows[1]["categoryPermissionParent"]="N" ;
+$actionRows[1]["categoryPermissionOther"]="N" ;
 //Hooks
 $hooks[0]="INSERT INTO `gibbonHook` (`gibbonHookID`, `name`, `type`, `options`, gibbonModuleID) VALUES (NULL, 'Lost Property', 'Public Home Page ', '', (SELECT gibbonModuleID FROM gibbonModule WHERE name='$name'));" ; //Serialised array to create hook and set options. See Hooks documentation online.
 ?>
