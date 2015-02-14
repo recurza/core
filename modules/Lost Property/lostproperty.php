@@ -17,6 +17,8 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+//add desc to display, make sure name and desc cannot be blank
+
 @session_start() ;
 
 if (isActionAccessible($guid, $connection2, "/modules/Lost Property/lostproperty.php")==FALSE) {
@@ -27,12 +29,12 @@ if (isActionAccessible($guid, $connection2, "/modules/Lost Property/lostproperty
 }
 else {
     print "<div class='trail'>";
-    print "<div class='trailHead'><a href='" . $_SESSION[$guid]["absoluteURL"] . "'>" . _("Home") . "</a> > <a href='" . $_SESSION[$guid]["absoluteURL"] . "/index.php?q=/modules/" . getModuleName($_GET["q"]) . "/" . getModuleEntry($_GET["q"], $connection2, $guid) . "'>" . _(getModuleName($_GET["q"])) . "</a> > </div><div class='trailEnd'>" . _('View Items') . "</div>" ;
+    print "<div class='trailHead'><a href='" . $_SESSION[$guid]["absoluteURL"] . "'>" . _("Home") . "</a> > <a href='" . $_SESSION[$guid]["absoluteURL"] . "/index.php?q=/modules/" . getModuleName($_GET["q"]) . "/" . getModuleEntry($_GET["q"], $connection2, $guid) . "'>" . _(getModuleName($_GET["q"])) . "</a> > </div><div class='trailEnd'>" . _('Browse Items') . "</div>" ;
     print "</div>" ;
 
     try {
 	$data=array("itemID"=>$row["itemID"]);
-	$sql="SELECT name FROM lostProperty";
+	$sql="SELECT name, description FROM lostProperty";
 	$result=$connection2->prepare($sql);
 	$result->execute($data);
     }
@@ -42,9 +44,10 @@ else {
 
     $count=0;
     $items=array();
+    $desc=array();
 
     while($row=$result->fetch()) {
-
+	$items[$count]=$row["name"];
 	$items[$count]=$row["name"];
 	$count++;
     }
