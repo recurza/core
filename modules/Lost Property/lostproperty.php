@@ -32,9 +32,16 @@ else {
     print "<div class='trailHead'><a href='" . $_SESSION[$guid]["absoluteURL"] . "'>" . _("Home") . "</a> > <a href='" . $_SESSION[$guid]["absoluteURL"] . "/index.php?q=/modules/" . getModuleName($_GET["q"]) . "/" . getModuleEntry($_GET["q"], $connection2, $guid) . "'>" . _(getModuleName($_GET["q"])) . "</a> > </div><div class='trailEnd'>" . _('Browse Items') . "</div>" ;
     print "</div>" ;
 
+    print "<h1>Browse Lost Items</h1>";
+
+    print "<table cellspacing='0' style='width: 100%; margin-top: -30px'>";
+    print "<th>Name</th>";
+    print "<th>Description</th>";
+    print "<th>Date Found</th>";
+
     try {
 	$data=array("itemID"=>$row["itemID"]);
-	$sql="SELECT name, description FROM lostProperty";
+	$sql="SELECT name, description, dateFound FROM lostProperty";
 	$result=$connection2->prepare($sql);
 	$result->execute($data);
     }
@@ -42,19 +49,23 @@ else {
 	print "<div class='error'>" . $e->getMessage() . "</div>" ; 
     }
 
-    $count=0;
     $items=array();
-    $desc=array();
 
     while($row=$result->fetch()) {
-	$items[$count]=$row["name"];
-	$items[$count]=$row["name"];
-	$count++;
-    }
-
-    for($i=0;$i<$count;$i++) {
-	print $items[$i];
+	print "<tr>";
+	print "<td>";
+	print $row["name"];
+	print "</td>";
+	print "<td>";
+	print $row["description"];
+	print "</td>";
+	print "<td>";
+	print $row["dateFound"];
+	print "</td>";
+	print "</tr>";
 	print "<br>";
     }
+
+    print "</table>";
 }
 ?>
