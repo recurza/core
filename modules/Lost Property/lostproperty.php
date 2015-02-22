@@ -17,7 +17,10 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-//add desc to display, make sure name and desc cannot be blank
+//TODO: make sure name & desc cannot be blank
+//TODO: edit and delete item
+//TODO: retrieve item
+//FIXME: CSS for Add Items
 
 @session_start() ;
 
